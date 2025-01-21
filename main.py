@@ -17,6 +17,7 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     dt=1
+    n=0
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -34,6 +35,9 @@ def main():
         for up in updatable:
             up.update(dt)
         screen.fill("black")
+        for ast in asteroids:
+            if ast.Colision(player):
+               exit("Game Over!")
         for dra in drawable:
             dra.draw(screen)
         pygame.display.flip()
