@@ -43,8 +43,8 @@ def main():
                exit("Game over!")
             for sho in shots:
                 if sho.Colision(ast):
+                    ast.Split()
                     pygame.sprite.Sprite.kill(sho)
-                    pygame.sprite.Sprite.kill(ast)
         for dra in drawable:
             dra.draw(screen)
         pygame.display.flip()
