@@ -18,6 +18,7 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     dt=1
     n=0
+    hs = int(open("highscore.txt", "r").read())
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -40,7 +41,11 @@ def main():
         screen.fill("black")
         for ast in asteroids:
             if ast.Colision(player):
-               exit(f"Your score {player.score}. Game over!")
+                if player.score>hs:
+                    open("highscore.txt", "w").write(str(player.score))
+                    exit(f"Congratulations your new highscore {player.score}! Game over!")
+                else:
+                    exit(f"Your score {player.score}. Highscore is {hs} Game over!")
             for sho in shots:
                 if sho.Colision(ast):
                     ast.Split(player)
