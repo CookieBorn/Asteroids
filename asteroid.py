@@ -13,9 +13,10 @@ class Asteroid(CircleShape):
         pygame.draw.circle(screen,"white",self.position,self.radius,2)
     def update(self, dt):
         self.position+=(self.velocity * dt)
-    def Split(self):
+    def Split(self,player):
         pygame.sprite.Sprite.kill(self)
         if self.radius<=ASTEROID_MIN_RADIUS:
+            player.score+=1
             return
         else:
             x=random.uniform(20,50)

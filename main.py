@@ -40,10 +40,10 @@ def main():
         screen.fill("black")
         for ast in asteroids:
             if ast.Colision(player):
-               exit("Game over!")
+               exit(f"Your score {player.score}. Game over!")
             for sho in shots:
                 if sho.Colision(ast):
-                    ast.Split()
+                    ast.Split(player)
                     pygame.sprite.Sprite.kill(sho)
         for dra in drawable:
             dra.draw(screen)
