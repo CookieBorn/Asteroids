@@ -6,6 +6,7 @@ import pygame
 from asteroid import *
 from asteroidfield import *
 from player import *
+from score_display import *
 pygame.init()
 from constants import *
 screen=pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -29,29 +30,37 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     Shot.containers=(shots,updatable,drawable)
+    Label.containers=(updatable, drawable)
 
     asteroidfield = AsteroidField()
     player=Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+
+
     while 0<1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         for up in updatable:
             up.update(dt)
+
         screen.fill("black")
         for ast in asteroids:
             if ast.Colision(player):
                 if player.score>hs:
                     open("highscore.txt", "w").write(str(player.score))
-                    exit(f"Congratulations your new highscore {player.score}! Game over!")
+                    exit(f"----------\nCongratulations!\nYour new highscore is {player.score}!\nGame over!\n----------")
                 else:
-                    exit(f"Your score {player.score}. Highscore is {hs} Game over!")
+                    exit(f"----------\nYour score {player.score}\nHighscore is {hs}\nGame over!\n----------")
             for sho in shots:
                 if sho.Colision(ast):
                     ast.Split(player)
                     pygame.sprite.Sprite.kill(sho)
         for dra in drawable:
             dra.draw(screen)
+        score=Label(f"Your score: {str(player.score)}", screen)
+        screen.blit(score.render(), (10,10))
+
         pygame.display.flip()
         dt = Clock.tick(60) / 1000
 

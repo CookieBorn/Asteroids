@@ -37,6 +37,8 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE] and self.timer<=0:
                Player.shoot(self)
                self.timer=PLAYER_SHOOT_COOLDOWN
+               if self.score >= 10:
+                   self.timer=PLAYER_SHOOT_COOLDOWN-0.1
     def move(self,dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
